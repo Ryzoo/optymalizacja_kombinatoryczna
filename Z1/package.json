@@ -1,0 +1,17 @@
+{
+  "name": "z1",
+  "version": "1.0.0",
+  "description": "Informacje dotyczące uruchomienia w pliku README.md",
+  "main": "index.js",
+  "dependencies": {
+    "n-readlines": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node index.js",
+    "test:quest": "node index.js testData/quest.gv",
+    "test:big": "node index.js testData/bigData.gv"
+  },
+  "author": "Grzegorz Kastelik",
+  "license": "ISC"
+}
