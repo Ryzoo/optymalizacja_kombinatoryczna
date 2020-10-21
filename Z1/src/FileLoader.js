@@ -18,9 +18,9 @@ class FileLoader{
                 const edge = Array.from(lineText.matchAll(regexpForEdgeParse))
                 const left = parseInt(edge[0][1])
                 const right = parseInt(edge[0][2])
-                verticesWithEdges[left] = [...verticesWithEdges[left], right]
-                verticesWithEdges[right] = [...verticesWithEdges[right], left]
-            } else verticesWithEdges.push([])
+                verticesWithEdges[left].right = [...verticesWithEdges[left].right, right]
+                verticesWithEdges[right].left = [...verticesWithEdges[right].left, left]
+            } else verticesWithEdges.push({right: [], left: []})
         }
 
         return verticesWithEdges

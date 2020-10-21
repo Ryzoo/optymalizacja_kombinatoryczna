@@ -10,6 +10,8 @@
   "scripts": {
     "test": "node index.js",
     "test:quest": "node index.js testData/quest.gv",
+    "test:g4": "node index.js testData/g4.gv",
+    "test:maly": "node index.js testData/maly.gv",
     "test:big": "node index.js testData/bigData.gv"
   },
   "author": "Grzegorz Kastelik",

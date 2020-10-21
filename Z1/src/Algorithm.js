@@ -8,26 +8,32 @@ class Algorithm{
         this.verticesWithEdges = verticesWithEdges
 
         this.verticesWithEdges
-            .forEach(async (verticle, index) => verticle.length ? this.toCheckCombinationBase.push(index) : this.combinationBase.push(index) )
+            .forEach(async (verticle, index) => (verticle.right.length || verticle.left.length) ? this.toCheckCombinationBase.push(index) : this.combinationBase.push(index) )
     }
 
     async addNextToCombination(solution, combination){
         if(!combination.length) return solution
-    
+
         const nextElement = combination[0]
-        const nextElementConnectedVerticles = this.verticesWithEdges[combination[0]]
-        const nextCombination = combination.filter((x) => !nextElementConnectedVerticles.includes(x) && x != nextElement)
+        const nextElementConnectedVerticles = this.verticesWithEdges[nextElement].right
+        const nextSolution = [...solution, nextElement]
+        const nextCombination = combination
+            .filter((x) => !nextElementConnectedVerticles.includes(x) && x !== nextElement)
+            .filter((y) => nextSolution.every((z) => !this.verticesWithEdges[y].right.includes(z)))
     
-        return await this.addNextToCombination([...solution, nextElement], nextCombination)
+        return await this.addNextToCombination(nextSolution, nextCombination)
     }
 
     async prepareSolutions(){
         let listOfSolutions = []
     
         await Promise.all(this.toCheckCombinationBase.map(async (x) => {
-            const nextElementConnectedVerticles = this.verticesWithEdges[x]
-            const newCombination = this.toCheckCombinationBase.filter((x) => !nextElementConnectedVerticles.includes(x))
-            const result = await this.addNextToCombination([...this.combinationBase, x], newCombination)
+            const nextElementConnectedVerticles = this.verticesWithEdges[x].right
+            const baseSoulution = [...this.combinationBase, x]
+            const newCombination = this.toCheckCombinationBase
+                .filter((y) => !nextElementConnectedVerticles.includes(y) && x !== y)
+                .filter((y) => !baseSoulution.some((z) => this.verticesWithEdges[y].right.includes(z)))
+            const result = await this.addNextToCombination(baseSoulution, newCombination)
             listOfSolutions.push(result)
           }));
     
@@ -39,21 +45,15 @@ class Algorithm{
     
     checkIsAnyConnected(result){
         const notInResult = this.toCheckCombinationBase.filter((x) => !result.includes(x))
-        return result.some((x) => {
-            return this.verticesWithEdges[x]
-                .some((y) => notInResult.includes(y))
-        })
+        return notInResult.every((nr) => this.verticesWithEdges[nr].right.some((v) => result.includes(v)))
     }
 
     presentSolutions(){
         const solutionLength = this.solutions.length
 
         if(!solutionLength) 
-            console.info("No solution!");
-
-        // this.solutions.forEach((x) => console.info("Solution:", x))
-        console.info("Min solution:", this.solutions[solutionLength-1])
-        console.info("Max solution:", this.solutions[0])
+            console.info("[SOLUTION] No solution!");
+        else console.info("[SOLUTION]", this.solutions[0])
     }
 }
 
