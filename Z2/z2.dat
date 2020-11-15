@@ -1,0 +1,5 @@
+data;
+param X := 200000;
+param Y := 40000;
+param Z := 70000;
+end;

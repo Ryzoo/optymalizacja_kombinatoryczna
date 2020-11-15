@@ -1,0 +1,11 @@
+data;
+set Pestycydy := Pest Bug;
+set Skladniki := Carb Mal;
+param cena := Pest 3 Bug 2.5;
+param zawartosc :=
+    Carb Pest 30
+    Carb Bug 40
+    Mal Pest 40
+    Mal Bug 20;
+param norma := Carb 120 Mal 60;
+end;

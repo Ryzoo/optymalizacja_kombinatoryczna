@@ -1,0 +1,8 @@
+data;
+set R := A B;
+param P := 350;
+param N := 600;
+param Z := A 50 B 140;
+param W := A 100 B 200;
+param C := A 22000 B 48000;
+end;
