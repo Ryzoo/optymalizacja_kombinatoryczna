@@ -1,0 +1,15 @@
+{
+  "name": "z4",
+  "version": "1.0.0",
+  "description": "Informacje dotyczące uruchomienia w pliku README.md",
+  "main": "index.js",
+  "dependencies": {
+    "prompt": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "program": "node index.js"
+  },
+  "author": "Grzegorz Kastelik",
+  "license": "ISC"
+}
