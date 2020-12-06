@@ -1,0 +1,1 @@
+data; param maxX := 6; set edges := 0 1 0 2 1 2 1 4 3 2 3 5 4 5 ; end;

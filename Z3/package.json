@@ -1,0 +1,15 @@
+{
+  "name": "z1",
+  "version": "1.0.0",
+  "description": "Informacje dotyczące uruchomienia w pliku README.md",
+  "main": "index.js",
+  "dependencies": {
+    "n-readlines": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "parse": "node index.js"
+  },
+  "author": "Grzegorz Kastelik",
+  "license": "ISC"
+}
