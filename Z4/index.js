@@ -24,7 +24,8 @@ prompt.get([
     ], function (err, result) {
         if (err) { return onErr(err); }
         console.log('You enter nubmers: ' + result.numbers);
-        console.log('Points sum: ' + sumOfPoints(result.numbers.map((x) => parseInt(x)), 0));
+        
+        console.log('Max sum: ' + sumOfPoints(result.numbers.map((x) => parseInt(x)), 0))
     });
 });
 
@@ -35,20 +36,23 @@ function onErr(err) {
 }
 
 function sumOfPoints(segment, sum){
-    if(segment.length < 3) return sum
     if(segment.length === 3) return sum + segment.reduce((a,b) => a + b, 0)
-
-    const bestIndex = getFourPointBestIndex(segment)
-    const newSum = sum + getSumOfIndex(segment, bestIndex)
-    const newSegment = segment.filter((x, index) => index !== bestIndex)
-
-    return sumOfPoints(newSegment, newSum)
+    if(segment.length === 4) return sum + getFourPointBestIndex(segment)
+    return Math.max(...segment.map((x, index) => {
+        if(index == 0 || index == segment.length - 1) return 0
+        return sum + sumOfPoints(removeIndex(segment, index), getSumOfIndex(segment, index))
+    }))
 }
 
 function getSumOfIndex(segment, bestIndex){
     return segment
         .filter((x, index) => index+1 === bestIndex || index === bestIndex || index-1 === bestIndex )
         .reduce((a,b) => a + b, 0)
+}
+
+function removeIndex(segment, bestIndex){
+    return segment
+        .filter((x, index) => index !== bestIndex)
 }
 
 function getFourPointBestIndex(segment){
@@ -77,5 +81,5 @@ function getFourPointBestIndex(segment){
         }
     })
 
-    return selectedIndex
+    return maxIndexValue
 }
